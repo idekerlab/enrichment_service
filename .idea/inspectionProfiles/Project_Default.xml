@@ -1,0 +1,44 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="22">
+            <item index="0" class="java.lang.String" itemvalue="cellmaps_imagedownloader" />
+            <item index="1" class="java.lang.String" itemvalue="cellmaps_utils" />
+            <item index="2" class="java.lang.String" itemvalue="cellmaps_image_embedding" />
+            <item index="3" class="java.lang.String" itemvalue="cellmaps_ppi_embedding" />
+            <item index="4" class="java.lang.String" itemvalue="cellmaps_ppidownloader" />
+            <item index="5" class="java.lang.String" itemvalue="cellmaps_coembedding" />
+            <item index="6" class="java.lang.String" itemvalue="cellmaps_generate_hierarchy" />
+            <item index="7" class="java.lang.String" itemvalue="pandas" />
+            <item index="8" class="java.lang.String" itemvalue="networkx" />
+            <item index="9" class="java.lang.String" itemvalue="ijson" />
+            <item index="10" class="java.lang.String" itemvalue="numpy" />
+            <item index="11" class="java.lang.String" itemvalue="requests_toolbelt" />
+            <item index="12" class="java.lang.String" itemvalue="cellmaps_hierarchyeval" />
+            <item index="13" class="java.lang.String" itemvalue="torchvision" />
+            <item index="14" class="java.lang.String" itemvalue="torchaudio" />
+            <item index="15" class="java.lang.String" itemvalue="fairscape-cli" />
+            <item index="16" class="java.lang.String" itemvalue="ndex2" />
+            <item index="17" class="java.lang.String" itemvalue="optuna" />
+            <item index="18" class="java.lang.String" itemvalue="mock" />
+            <item index="19" class="java.lang.String" itemvalue="argparse" />
+            <item index="20" class="java.lang.String" itemvalue="cdapsutil" />
+            <item index="21" class="java.lang.String" itemvalue="hidef" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8NamingInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="N801" />
+          <option value="N806" />
+          <option value="N803" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
