@@ -5,6 +5,7 @@ import sys
 import argparse
 import json
 
+import numpy as np
 import pandas
 from ndex2.cx2 import RawCX2NetworkFactory, CX2Network
 from gprofiler import GProfiler
@@ -106,13 +107,13 @@ def run_gprofiler(genes, maxgenelistsize, organism, maxpval, omit_intersections,
     annotated_members = df_result['intersections'][0]
 
     theres = {'CD_CommunityName': df_result['name'][0],
-              'CD_AnnotatedMembers': annotated_members,
+              'CD_AnnotatedMembers': ' '.join(annotated_members),
               'CD_AnnotatedMembers_Size': len(annotated_members),
               'CD_AnnotatedMembers_Overlap': len(annotated_members) / len(genes),
               'CD_AnnotatedMembers_Pvalue': df_result['p_value'][0],
               'CD_Labeled': len(df_result['name'][0]) > 0,
               'CD_AnnotatedAlgorithm': 'gProfiler',
-              'CD_NonAnnotatedMembers': list(set(genes) - set(annotated_members)),
+              'CD_NonAnnotatedMembers': ' '.join(list(set(genes) - set(annotated_members))),
               'CD_AnnotatedMembers_SourceDB': df_result['source'][0],
               'CD_AnnotatedMembers_SourceTerm': df_result['native'][0]
               }
@@ -132,9 +133,9 @@ def run_enrichment_with_gprofiler(node_table, theargs):
         "columns": [{"id": "CD_CommunityName", "type": "string"},
                     {"id": "CD_AnnotatedMembers", "type": "string"},
                     {"id": "CD_AnnotatedMembers_Size", "type": "integer"},
-                    {"id": "CD_AnnotatedMembers_Overlap", "type": "string"},
-                    {"id": "CD_AnnotatedMembers_Pvalue", "type": "string"},
-                    {"id": "CD_Labeled", "type": "string"},
+                    {"id": "CD_AnnotatedMembers_Overlap", "type": "string"}, #TODO
+                    {"id": "CD_AnnotatedMembers_Pvalue", "type": "string"}, #TODO
+                    {"id": "CD_Labeled", "type": "boolean"}, #TODO
                     {"id": "CD_AnnotatedAlgorithm", "type": "string"},
                     {"id": "CD_NonAnnotatedMembers", "type": "string"},
                     {"id": "CD_AnnotatedMembers_SourceDB", "type": "string"},
