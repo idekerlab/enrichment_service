@@ -224,12 +224,7 @@ def run_iquery(genes, theargs):
     :param gprofwrapper:
     :return:
     """
-    if ',' in genes:
-        genes = genes.strip(',').strip('\n').split(',')
-    else:
-        genes = genes.strip(' ').strip('\n').split(' ')
-    if genes is None or (len(genes) == 1 and len(genes[0].strip()) == 0):
-        sys.stderr.write('No genes found in input')
+    if genes is None or len(genes) == 0 or (len(genes) == 1 and len(genes[0].strip()) == 0):
         return None
     user_agent = 'enrichment-service/' + enrichment_service.__version__
     resturl = theargs.url
@@ -263,13 +258,8 @@ def run_gprofiler(genes, maxgenelistsize, organism, maxpval, omit_intersections,
     """
     todo
     """
-    if ',' in genes:
-        genes = genes.strip(',').strip('\n').split(',')
-    else:
-        genes = genes.strip(' ').strip('\n').split(' ')
     genelist_size = len(genes)
     if genes is None or genelist_size == 0 or (genelist_size == 1 and len(genes[0].strip()) == 0):
-        sys.stderr.write('No genes found in input')
         return None
     if genelist_size > maxgenelistsize:
         sys.stderr.write('Gene list size of ' +
@@ -330,24 +320,36 @@ def run_gprofiler(genes, maxgenelistsize, organism, maxpval, omit_intersections,
 
 def run_enrichment(node_table, theargs, mode):
     results_for_rows = {}
+    if len(node_table["columns"]) != 1:
+        sys.stderr.write('Only one column should be passed in the input.')
+        return None
+    column_name = node_table["columns"][0]["id"]
     for node_id, node_val in node_table["rows"].items():
-        genes = node_val["CD_MemberList"]
+        genes = node_val[column_name]
+        if ',' in genes:
+            genes = genes.strip(',').strip('\n').split(',')
+        else:
+            genes = genes.strip(' ').strip('\n').split(' ')
         if mode == 'gprofiler':
-            results_for_rows[node_id] = run_gprofiler(genes, theargs.maxgenelistsize, theargs.organism, theargs.maxpval,
+            res = run_gprofiler(genes, theargs.maxgenelistsize, theargs.organism, theargs.maxpval,
                                                       theargs.omit_intersections, theargs.minoverlap,
                                                       theargs.excludesource, theargs.precision)
         elif mode == 'iquery':
-            results_for_rows[node_id] = run_iquery(genes, theargs)
+            res = run_iquery(genes, theargs)
         else:
-            raise Exception("Pick either gprofiler or iquery algorithm")
+            sys.stderr.write('Algorithm must be either gprofiler or iquery.')
+            return None
+
+        if res is not None:
+            results_for_rows[node_id] = res
 
     theres = {
         "columns": [{"id": "CD_CommunityName", "type": "string"},
                     {"id": "CD_AnnotatedMembers", "type": "string"},
                     {"id": "CD_AnnotatedMembers_Size", "type": "integer"},
-                    {"id": "CD_AnnotatedMembers_Overlap", "type": "string"},  # TODO
-                    {"id": "CD_AnnotatedMembers_Pvalue", "type": "string"},  # TODO
-                    {"id": "CD_Labeled", "type": "boolean"},  # TODO
+                    {"id": "CD_AnnotatedMembers_Overlap", "type": "double"},
+                    {"id": "CD_AnnotatedMembers_Pvalue", "type": "double"},
+                    {"id": "CD_Labeled", "type": "boolean"},
                     {"id": "CD_AnnotatedAlgorithm", "type": "string"},
                     {"id": "CD_NonAnnotatedMembers", "type": "string"},
                     {"id": "CD_AnnotatedMembers_SourceDB", "type": "string"},
