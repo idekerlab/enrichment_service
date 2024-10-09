@@ -75,8 +75,6 @@ def run_gprofiler(genes, maxgenelistsize, organism, maxpval, omit_intersections,
                                      user_threshold=maxpval,
                                      no_evidences=omit_intersections)
 
-    print(df_result)
-
     if not isinstance(df_result, pandas.DataFrame) or df_result.shape[0] == 0:
         return None
 
@@ -124,7 +122,6 @@ def run_gprofiler(genes, maxgenelistsize, organism, maxpval, omit_intersections,
 
 def run_enrichment_with_gprofiler(node_table, theargs):
     results_for_rows = {}
-    print(node_table)
     for node_id, node_val in node_table["rows"].items():
         genes = node_val["CD_MemberList"]
         results_for_rows[node_id] = run_gprofiler(genes, theargs.maxgenelistsize, theargs.organism, theargs.maxpval,
