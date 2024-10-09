@@ -19,7 +19,9 @@ with open(os.path.join('enrichment_service', '__init__.py')) as ver_file:
             version=re.sub("'", "", line[line.index("'"):])
 
 requirements = [
-    'ndex2'
+    'ndex2',
+    'gprofiler-official',
+    'requests'
 ]
 
 test_requirements = [
