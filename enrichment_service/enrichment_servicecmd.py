@@ -224,7 +224,10 @@ def run_iquery(genes, theargs):
     :param gprofwrapper:
     :return:
     """
-    genes = genes.strip(',').strip('\n').split(',')
+    if ',' in genes:
+        genes = genes.strip(',').strip('\n').split(',')
+    else:
+        genes = genes.strip(' ').strip('\n').split(' ')
     if genes is None or (len(genes) == 1 and len(genes[0].strip()) == 0):
         sys.stderr.write('No genes found in input')
         return None
