@@ -343,19 +343,21 @@ def run_enrichment(node_table, theargs, mode):
         if res is not None:
             results_for_rows[node_id] = res
 
-    theres = {
-        "columns": [{"id": "CD_CommunityName", "type": "string"},
-                    {"id": "CD_AnnotatedMembers", "type": "string"},
-                    {"id": "CD_AnnotatedMembers_Size", "type": "integer"},
-                    {"id": "CD_AnnotatedMembers_Overlap", "type": "double"},
-                    {"id": "CD_AnnotatedMembers_Pvalue", "type": "double"},
-                    {"id": "CD_Labeled", "type": "boolean"},
-                    {"id": "CD_AnnotatedAlgorithm", "type": "string"},
-                    {"id": "CD_NonAnnotatedMembers", "type": "string"},
-                    {"id": "CD_AnnotatedMembers_SourceDB", "type": "string"},
-                    {"id": "CD_AnnotatedMembers_SourceTerm", "type": "string"}],
-        "rows": results_for_rows
-    }
+    theres = [{ "action": 'updateTables',
+               "data": {
+                        "columns": [{"id": "CD_CommunityName", "type": "string"},
+                                    {"id": "CD_AnnotatedMembers", "type": "string"},
+                                    {"id": "CD_AnnotatedMembers_Size", "type": "integer"},
+                                    {"id": "CD_AnnotatedMembers_Overlap", "type": "double"},
+                                    {"id": "CD_AnnotatedMembers_Pvalue", "type": "double"},
+                                    {"id": "CD_Labeled", "type": "boolean"},
+                                    {"id": "CD_AnnotatedAlgorithm", "type": "string"},
+                                    {"id": "CD_NonAnnotatedMembers", "type": "string"},
+                                    {"id": "CD_AnnotatedMembers_SourceDB", "type": "string"},
+                                    {"id": "CD_AnnotatedMembers_SourceTerm", "type": "string"}],
+                        "rows": results_for_rows
+                       }
+               }]
     return theres
 
 
