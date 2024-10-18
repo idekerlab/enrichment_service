@@ -345,6 +345,7 @@ def run_enrichment(node_table, theargs, mode):
 
     theres = [{ "action": 'updateTables',
                "data": {
+                        "id": "node",
                         "columns": [{"id": "CD_CommunityName", "type": "string"},
                                     {"id": "CD_AnnotatedMembers", "type": "string"},
                                     {"id": "CD_AnnotatedMembers_Size", "type": "integer"},

@@ -2,4 +2,4 @@
 
 __author__ = 'Joanna Lenkiewicz'
 __email__ = 'jlenkiewicz@ucsd.edu'
-__version__ = '0.2.0'
+__version__ = '0.3.0'
