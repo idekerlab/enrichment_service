@@ -4,6 +4,7 @@ import sys
 import argparse
 import json
 import time
+import re
 
 import pandas
 import requests
@@ -317,6 +318,23 @@ def run_gprofiler(genes, maxgenelistsize, organism, maxpval, omit_intersections,
 
     return theres
 
+def get_genes_from_data(data):
+    """
+    Given data of either string or list extract a list of genes/proteins
+    """
+    genes = []
+    if isinstance(data, list):
+        for entry in data:
+            genes.append(entry.strip())
+        return genes
+
+    initialsplit_genes = re.split('\\s*,\\s*|\\s+',data)
+    for entry in initialsplit_genes:
+        stripped_entry = entry.strip()
+        if len(stripped_entry) == 0:
+            continue
+        genes.append(stripped_entry)
+    return genes
 
 def run_enrichment(node_table, theargs, mode):
     results_for_rows = {}
@@ -325,11 +343,7 @@ def run_enrichment(node_table, theargs, mode):
         return None
     column_name = node_table["columns"][0]["id"]
     for node_id, node_val in node_table["rows"].items():
-        genes = node_val[column_name]
-        if ',' in genes:
-            genes = genes.strip(',').strip('\n').split(',')
-        else:
-            genes = genes.strip(' ').strip('\n').split(' ')
+        genes = get_genes_from_data(node_val[column_name])
         if mode == 'gprofiler':
             res = run_gprofiler(genes, theargs.maxgenelistsize, theargs.organism, theargs.maxpval,
                                                       theargs.omit_intersections, theargs.minoverlap,
