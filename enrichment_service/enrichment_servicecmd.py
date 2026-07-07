@@ -52,7 +52,7 @@ def _parse_arguments(desc, args):
                              'jaccard')
     parser.add_argument('--organism', default='hsapiens',
                         help='Organism to use')
-    parser.add_argument('--url', default='http://ndexbio.org',
+    parser.add_argument('--url', default='https://www.ndexbio.org',
                         help='Endpoint of REST service')
     parser.add_argument('--polling_interval', default=1,
                         type=float, help='Time in seconds to'
